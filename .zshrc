@@ -1,41 +1,32 @@
-#alias vim='nvim'
-alias node=nodejs
 alias log-crontab='sudo cat /var/log/syslog | grep'
 alias log-cron='sudo cat /var/log/syslog | grep'
 alias log-mycron='sudo cat /var/log/syslog | grep "($(whoami))"'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias start-pg=pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
 ##############################
 #   [misc] - Variables
 ##############################
-UTILITIES=$HOME/utilities
-DOWNLOAD=$HOME/downloads
-PROJECT=$HOME/downloads
+UTILS=$HOME/utils
 LOG=$HOME/logs
 
 ##############################
 #   [misc] - Functions
 ##############################
 mg () { mkdir "$@" && cd "$@" ; }
-# chpwd() { ls }
-alias start-pg=pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 
 ##############################
 #   [lang] - Python
 ##############################
 
-export PATH="$HOME/anaconda3/bin:$PATH"
 alias djr='python manage.py runserver'
 alias djs='python manage.py shell'
 alias djmm='python manage.py makemigrations'
 alias djmg='python manage.py migrate'
-alias puall='pip freeze | xargs pip uninstall -y'
-alias pi="pip install"
 alias open-django="python -c \"import os; import django; os.system('open %s'% django.__path__[0])\""
 
 ##############################
 #   [lang] - Node
 ##############################
-export PATH="$PATH:`yarn global bin`"
 
 alias nu='npx npm-check -u'
 alias nd='npm run dev'
@@ -49,25 +40,17 @@ alias nt='npm test'
 alias nl='npm list --global --depth=0'
 alias nu='npm uninstall'
 alias npm-reinstall='rm -rf node_modules && npm install'
+
 nit() {  npm install $1 && npm install -D @types/$1 }
 
-export NODE_REPL_HISTORY=$UTILITIES/node/.node_repl_history
+export NODE_REPL_HISTORY=~/.cache/node/.node_repl_history
 
-export NVM_DIR="$HOME/utilities/nvm"
+export NVM_DIR="$UTILS/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 
 
-##############################
-#   [config] Zsh
-##############################
-HISTFILE=$UTILITIES/zsh/.zsh_history
-ZDOTDIR=$UTILITIES/zsh
-DEFAULT_USER="dev"
-ISABLE_AUTO_UPDATE="true"
-DISABLE_AUTO_TITLE="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 
 ##############################
@@ -92,7 +75,6 @@ alias gwait="git reset HEAD"
 ##############################
 #   [other]
 ##############################
-bindkey '^ ' autosuggest-execute
 alias t="tree"
 alias tp="tree --prune"
 alias e="code"
@@ -107,10 +89,19 @@ alias lf="ls -d */"
 #   [config] oh-my-zsh
 ##############################
 plugins=(zsh-syntax-highlighting z zsh-autosuggestions)
-ZSH_THEME="spaceship"
-export ZSH=$UTILITIES/oh-my-zsh
+ZSH_THEME=""
+export ZSH=$UTILS/oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-DEFAULT_USER="dev"
+# Custom Prompt
+autoload -U promptinit; promptinit
+prompt pure
+
+##############################
+#   [config] Zsh
+##############################
+HISTFILE=$UTILS/zsh/.zsh_history
+ZDOTDIR=$UTILS/zsh
+DEFAULT_USER="michael"
 ISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
@@ -118,11 +109,5 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 ##############################
 #   [config] Z
 ##############################
-. $UTILITIES/z/z.sh
-_Z_DATA=$UTILITIES/z/database
-
-##############################
-#   [config] Conda
-##############################
-source /home/dev/utilities/anaconda3/etc/profile.d/conda.sh
+_Z_DATA=$UTILS/z/database
 
