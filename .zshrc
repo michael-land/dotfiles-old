@@ -1,3 +1,5 @@
+export PATH="/home/michael/.local/bin:$PATH"
+
 alias log-crontab='sudo cat /var/log/syslog | grep'
 alias log-cron='sudo cat /var/log/syslog | grep'
 alias log-mycron='sudo cat /var/log/syslog | grep "($(whoami))"'
@@ -7,7 +9,6 @@ alias start-pg=pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 #   [misc] - Variables
 ##############################
 UTILS=$HOME/utils
-LOG=$HOME/logs
 
 ##############################
 #   [misc] - Functions
@@ -88,7 +89,7 @@ alias lf="ls -d */"
 ##############################
 #   [config] oh-my-zsh
 ##############################
-plugins=(zsh-syntax-highlighting z zsh-autosuggestions)
+plugins=(z zsh-autosuggestions)
 ZSH_THEME=""
 export ZSH=$UTILS/oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -111,3 +112,4 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 ##############################
 _Z_DATA=$UTILS/z/database
 
+export PATH="$PATH:$(yarn global bin)"
