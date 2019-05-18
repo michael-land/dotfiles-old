@@ -89,7 +89,7 @@ alias lf="ls -d */"
 ##############################
 #   [config] oh-my-zsh
 ##############################
-plugins=(z zsh-autosuggestions)
+plugins=(z zsh-autosuggestions zsh-syntax-highlighting)
 ZSH_THEME=""
 export ZSH=$UTILS/oh-my-zsh
 source $ZSH/oh-my-zsh.sh
