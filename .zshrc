@@ -1,17 +1,16 @@
-export PATH="/home/michael/.local/bin:$PATH"
-
-alias log-crontab='sudo cat /var/log/syslog | grep'
-alias log-cron='sudo cat /var/log/syslog | grep'
-alias log-mycron='sudo cat /var/log/syslog | grep "($(whoami))"'
-alias start-pg=pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-
 ##############################
 #   [misc] - Variables
 ##############################
-UTILS=$HOME/utils
+CONFIG_DIR=$HOME/.config
+ZDOTDIR=$CONFIG_DIR/zsh
+DEFAULT_USER="michael"
+ISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_TITLE="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+HISTFILE=$ZDOTDIR/.zsh_history
 
-##############################
-#   [misc] - Functions
+
+############################## [misc] - Functions
 ##############################
 mg () { mkdir "$@" && cd "$@" ; }
 
@@ -28,25 +27,9 @@ alias open-django="python -c \"import os; import django; os.system('open %s'% dj
 ##############################
 #   [lang] - Node
 ##############################
-
-alias nu='npx npm-check -u'
-alias nd='npm run dev'
-alias nb='npm run build'
-alias ni='npm install'
-alias nid='npm install -D'
-alias nig='npm install -g'
-alias nr='npm run'
-alias ns='npm start'
-alias nt='npm test'
-alias nl='npm list --global --depth=0'
-alias nu='npm uninstall'
-alias npm-reinstall='rm -rf node_modules && npm install'
-
-nit() {  npm install $1 && npm install -D @types/$1 }
-
 export NODE_REPL_HISTORY=~/.cache/node/.node_repl_history
 
-export NVM_DIR="$UTILS/nvm"
+export NVM_DIR="$CONFIG_DIR/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
@@ -54,9 +37,9 @@ export NVM_DIR="$UTILS/nvm"
 
 
 
-##############################
-#   [tool] - Git, ^g    reference - https://dev.to/robertcoopercode/using-aliases-to-speed-up-your-git-workflow-2f5a
-##############################
+###############################
+#   [tool] - Git
+###############################
 
 alias gaa="git add -A"
 alias gc="git checkout"
@@ -76,6 +59,11 @@ alias gwait="git reset HEAD"
 ##############################
 #   [other]
 ##############################
+alias log-crontab='sudo cat /var/log/syslog | grep'
+alias log-cron='sudo cat /var/log/syslog | grep'
+alias log-mycron='sudo cat /var/log/syslog | grep "($(whoami))"'
+alias start-pg=pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
 alias t="tree"
 alias tp="tree --prune"
 alias e="code"
@@ -89,9 +77,9 @@ alias lf="ls -d */"
 ##############################
 #   [config] oh-my-zsh
 ##############################
-plugins=(z zsh-autosuggestions zsh-syntax-highlighting)
+export ZSH=$CONFIG_DIR/oh-my-zsh
 ZSH_THEME=""
-export ZSH=$UTILS/oh-my-zsh
+plugins=( z zsh-autosuggestions zsh-syntax-highlighting )
 source $ZSH/oh-my-zsh.sh
 # Custom Prompt
 autoload -U promptinit; promptinit
@@ -100,16 +88,14 @@ prompt pure
 ##############################
 #   [config] Zsh
 ##############################
-HISTFILE=$UTILS/zsh/.zsh_history
-ZDOTDIR=$UTILS/zsh
-DEFAULT_USER="michael"
-ISABLE_AUTO_UPDATE="true"
-DISABLE_AUTO_TITLE="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 ##############################
 #   [config] Z
 ##############################
-_Z_DATA=$UTILS/z/database
+_Z_DATA=$CONFIG_DIR/z/database
 
+##############################
+#   PATH
+##############################
 export PATH="$PATH:$(yarn global bin)"
+export PATH="$HOME/.local/bin:$PATH"
